@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — TraFa</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Crimson+Pro:wght@300;400&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <div class="cursor"></div>
+
+    <header>
+        <div class="logo"><a href="index.html">TRAFA</a></div>
+        <nav>
+            <a href="shop.html">Shop</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1 class="page-title">Get In Touch</h1>
+        <p class="page-subtitle">We're here to help with any questions or concerns</p>
+    </div>
+
+    <section class="section">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2
+                style="font-family: 'Archivo Black', sans-serif; font-size: 2.5rem; margin-bottom: 2rem; text-align: center;">
+                Send Us a Message</h2>
+            <form class="contact-form" id="contact-form">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <select id="subject" required>
+                        <option value="">Select a subject</option>
+                        <option value="order">Order Inquiry</option>
+                        <option value="product">Product Question</option>
+                        <option value="shipping">Shipping & Delivery</option>
+                        <option value="return">Returns & Exchanges</option>
+                        <option value="wholesale">Wholesale Inquiry</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" required></textarea>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--light-gray);">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <h2 id="faq"
+                style="font-family: 'Archivo Black', sans-serif; font-size: 3rem; margin-bottom: 3rem; text-align: center;">
+                Frequently Asked Questions</h2>
+
+            <div style="display: grid; gap: 2rem;">
+                <div style="border: var(--border); padding: 2rem; background: var(--white);">
+                    <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">What
+                        is your return policy?</h3>
+                    <p style="line-height: 1.7; color: var(--text-gray);">We accept returns within 30 days of delivery
+                        for items in their original condition with tags attached. Custom or personalized items are final
+                        sale. Return shipping is free for defective items; otherwise, customers are responsible for
+                        return shipping costs.</p>
+                </div>
+
+                <div style="border: var(--border); padding: 2rem; background: var(--white);">
+                    <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">How
+                        long does shipping take?</h3>
+                    <p style="line-height: 1.7; color: var(--text-gray);">Standard shipping takes 5-7 business days.
+                        Expedited shipping (2-3 business days) is available for an additional fee. Free standard
+                        shipping is offered on orders over $500. International shipping times vary by destination.</p>
+                </div>
+
+                <div style="border: var(--border); padding: 2rem; background: var(--white);">
+                    <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">Do you
+                        ship internationally?</h3>
+                    <p style="line-height: 1.7; color: var(--text-gray);">Yes, we ship to select countries worldwide.
+                        International shipping costs and customs fees are calculated at checkout. Please note that
+                        international orders may be subject to import duties and taxes, which are the responsibility of
+                        the customer.</p>
+                </div>
+
+                <div style="border: var(--border); padding: 2rem; background: var(--white);">
+                    <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">Are
+                        your products sustainably sourced?</h3>
+                    <p style="line-height: 1.7; color: var(--text-gray);">Sustainability is core to our mission. We
+                        partner with artisans and manufacturers who use responsible materials, ethical labor practices,
+                        and low-impact production methods. Many of our products are made from natural, renewable, or
+                        recycled materials.</p>
+                </div>
+
+                <div style="border: var(--border); padding: 2rem; background: var(--white);">
+                    <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">Do you
+                        offer gift wrapping?</h3>
+                    <p style="line-height: 1.7; color: var(--text-gray);">Yes! We offer complimentary gift wrapping with
+                        a personalized message card. Simply select the gift wrap option at checkout and include your
+                        message in the notes section.</p>
+                </div>
+
+                <div style="border: var(--border); padding: 2rem; background: var(--white);">
+                    <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">Can I
+                        cancel or modify my order?</h3>
+                    <p style="line-height: 1.7; color: var(--text-gray);">Orders can be modified or cancelled within 2
+                        hours of placement. After this window, orders enter our fulfillment process and cannot be
+                        changed. Please contact us immediately if you need to make changes to your order.</p>
+                </div>
+
+                <div style="border: var(--border); padding: 2rem; background: var(--white);">
+                    <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">Do you
+                        have a physical showroom?</h3>
+                    <p style="line-height: 1.7; color: var(--text-gray);">Yes, our flagship showroom is located in
+                        Brooklyn, New York. Open Tuesday-Saturday, 11AM-7PM, and Sunday 12PM-6PM. Appointments are
+                        recommended for personalized consultations. Please contact us to schedule a visit.</p>
+                </div>
+
+                <div style="border: var(--border); padding: 2rem; background: var(--white);">
+                    <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">Do you
+                        offer wholesale or trade pricing?</h3>
+                    <p style="line-height: 1.7; color: var(--text-gray);">Yes, we work with interior designers,
+                        architects, and retailers. Please complete our trade application form or email
+                        trade@trafa-design.com with your business details and tax ID for more information about our
+                        trade
+                        program.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div
+            style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; text-align: center;">
+            <div>
+                <div
+                    style="font-family: 'Archivo Black', sans-serif; font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;">
+                    📧</div>
+                <h3
+                    style="font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem;">
+                    Email</h3>
+                <p style="color: var(--text-gray);">hello@trafa-shop.com</p>
+            </div>
+            <div>
+                <div
+                    style="font-family: 'Archivo Black', sans-serif; font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;">
+                    📞</div>
+                <h3
+                    style="font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem;">
+                    Phone</h3>
+                <p style="color: var(--text-gray);">+254 700 123 456</p>
+            </div>
+            <div>
+                <div
+                    style="font-family: 'Archivo Black', sans-serif; font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;">
+                    📍</div>
+                <h3
+                    style="font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem;">
+                    Address</h3>
+                <p style="color: var(--text-gray);">Dubois Rd<br>Nairobi, CBD</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">TraFa</div>
+                <p class="footer-tagline">Contemporary design objects for thoughtful living. Curated with care,
+                    delivered with precision.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Shop</h4>
+                <ul class="footer-links">
+                    <li><a href="shop.html?category=furniture">Furniture</a></li>
+                    <li><a href="shop.html?category=lighting">Lighting</a></li>
+                    <li><a href="shop.html?category=decor">Decor</a></li>
+                    <li><a href="shop.html?category=textiles">Textiles</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="about.html#careers">Careers</a></li>
+                    <li><a href="about.html#sustainability">Sustainability</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html#shipping">Shipping</a></li>
+                    <li><a href="about.html#returns">Returns</a></li>
+                    <li><a href="contact.html#faq">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 TraFa. All rights reserved.</div>
+            <div><a href="privacy.html">Privacy Policy</a> • <a href="terms.html">Terms of Service</a></div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="cart.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            // In a real application, this would send data to a server
+            console.log('Form submitted:', formData);
+
+            showSuccessMessage('Message sent successfully! We\'ll respond within 24 hours.');
+            e.target.reset();
+        });
+    </script>
+</body>
+
+</html>

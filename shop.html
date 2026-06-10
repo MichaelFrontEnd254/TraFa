@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop — TRAFA</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Crimson+Pro:wght@300;400&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <div class="cursor"></div>
+
+    <header>
+        <div class="logo"><a href="index.html">TRAFA</a></div>
+        <nav>
+            <a href="shop.html">Shop</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1 class="page-title">Shop Collection</h1>
+        <p class="page-subtitle">Explore our curated selection of contemporary design objects</p>
+    </div>
+
+    <div class="section">
+        <div class="shop-layout">
+            <aside class="filters">
+                <div class="filter-group">
+                    <h3>Category</h3>
+                    <label>
+                        <input type="radio" name="category" value="all" checked onchange="filterProducts()">
+                        All Products
+                    </label>
+                    <label>
+                        <input type="radio" name="category" value="furniture" onchange="filterProducts()">
+                        Furniture
+                    </label>
+                    <label>
+                        <input type="radio" name="category" value="lighting" onchange="filterProducts()">
+                        Lighting
+                    </label>
+                    <label>
+                        <input type="radio" name="category" value="decor" onchange="filterProducts()">
+                        Decor
+                    </label>
+                    <label>
+                        <input type="radio" name="category" value="textiles" onchange="filterProducts()">
+                        Textiles
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Price Range</h3>
+                    <div class="price-range">
+                        <input type="number" id="min-price" placeholder="Min" value="0" onchange="filterProducts()">
+                        <span>—</span>
+                        <input type="number" id="max-price" placeholder="Max" value="2000" onchange="filterProducts()">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Sort By</h3>
+                    <select id="sort-by" onchange="filterProducts()"
+                        style="width: 100%; padding: 0.75rem; border: var(--border); background: var(--white); font-family: 'Crimson Pro', serif;">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;" onclick="resetFilters()">
+                    Reset Filters
+                </button>
+            </aside>
+
+            <div>
+                <div style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+                    <p id="product-count"
+                        style="font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em;">
+                        Showing all products
+                    </p>
+                    <input type="search" id="search-input" placeholder="Search products..." onkeyup="filterProducts()"
+                        style="padding: 0.75rem 1.5rem; border: var(--border); background: var(--white); font-family: 'Crimson Pro', serif; max-width: 300px; width: 100%;">
+                </div>
+                <div class="products-grid" id="shop-products">
+                    <!-- Products loaded by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">MONO</div>
+                <p class="footer-tagline">Contemporary design objects for thoughtful living. Curated with care,
+                    delivered with precision.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Shop</h4>
+                <ul class="footer-links">
+                    <li><a href="shop.html?category=furniture">Furniture</a></li>
+                    <li><a href="shop.html?category=lighting">Lighting</a></li>
+                    <li><a href="shop.html?category=decor">Decor</a></li>
+                    <li><a href="shop.html?category=textiles">Textiles</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="about.html#careers">Careers</a></li>
+                    <li><a href="about.html#sustainability">Sustainability</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html#shipping">Shipping</a></li>
+                    <li><a href="about.html#returns">Returns</a></li>
+                    <li><a href="contact.html#faq">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 MONO. All rights reserved.</div>
+            <div><a href="privacy.html">Privacy Policy</a> • <a href="terms.html">Terms of Service</a></div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="cart.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // Load products on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check for category parameter in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            if (category) {
+                document.querySelector(`input[value="${category}"]`).checked = true;
+            }
+            filterProducts();
+        });
+
+        // Filter products
+        function filterProducts() {
+            const category = document.querySelector('input[name="category"]:checked').value;
+            const minPrice = parseInt(document.getElementById('min-price').value) || 0;
+            const maxPrice = parseInt(document.getElementById('max-price').value) || 10000;
+            const sortBy = document.getElementById('sort-by').value;
+            const searchQuery = document.getElementById('search-input').value.toLowerCase();
+
+            // Get products
+            let products = category === 'all' ? getAllProducts() : getProductsByCategory(category);
+
+            // Filter by price
+            products = filterByPrice(products, minPrice, maxPrice);
+
+            // Filter by search
+            if (searchQuery) {
+                products = products.filter(p =>
+                    p.name.toLowerCase().includes(searchQuery) ||
+                    p.description.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            // Sort products
+            switch (sortBy) {
+                case 'price-low':
+                    products.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    products.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name':
+                    products.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                // default is featured
+            }
+
+            displayProducts(products);
+            updateProductCount(products.length);
+        }
+
+        // Display products
+        function displayProducts(products) {
+            const container = document.getElementById('shop-products');
+
+            if (products.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem;">
+                        <h2 style="font-family: 'Archivo Black', sans-serif; font-size: 2rem; margin-bottom: 1rem;">No products found</h2>
+                        <p style="color: var(--text-gray); margin-bottom: 2rem;">Try adjusting your filters or search terms</p>
+                        <button class="btn" onclick="resetFilters()">Reset Filters</button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = products.map((product, index) => `
+                <div class="product-card" style="display: block;">
+                    <a href="product.html?id=${product.id}" style="text-decoration: none; color: inherit; display: block;">
+                        <span class="product-number">[${String(product.id).padStart(3, '0')}]</span>
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">$${product.price}</div>
+                    </a>
+                    <button class="btn btn-small add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}); return false;">Add to Cart</button>
+                </div>
+            `).join('');
+        }
+
+        // Update product count
+        function updateProductCount(count) {
+            const countEl = document.getElementById('product-count');
+            countEl.textContent = `Showing ${count} product${count !== 1 ? 's' : ''}`;
+        }
+
+        // Reset filters
+        function resetFilters() {
+            document.querySelector('input[value="all"]').checked = true;
+            document.getElementById('min-price').value = '0';
+            document.getElementById('max-price').value = '2000';
+            document.getElementById('sort-by').value = 'featured';
+            document.getElementById('search-input').value = '';
+            filterProducts();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product — TraFa</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Crimson+Pro:wght@300;400&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <div class="cursor"></div>
+
+    <header>
+        <div class="logo"><a href="index.html">TRAFA</a></div>
+        <nav>
+            <a href="shop.html">Shop</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+
+    <div class="product-detail" id="product-container">
+        <!-- Product loaded by JavaScript -->
+    </div>
+
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">You May<br>Also Like</h2>
+            <p class="section-description">Discover more pieces from our curated collection</p>
+        </div>
+        <div class="products-grid" id="related-products">
+            <!-- Related products loaded by JavaScript -->
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">TraFa</div>
+                <p class="footer-tagline">Contemporary design objects for thoughtful living. Curated with care,
+                    delivered with precision.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Shop</h4>
+                <ul class="footer-links">
+                    <li><a href="shop.html?category=furniture">Furniture</a></li>
+                    <li><a href="shop.html?category=lighting">Lighting</a></li>
+                    <li><a href="shop.html?category=decor">Decor</a></li>
+                    <li><a href="shop.html?category=textiles">Textiles</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="about.html#careers">Careers</a></li>
+                    <li><a href="about.html#sustainability">Sustainability</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html#shipping">Shipping</a></li>
+                    <li><a href="about.html#returns">Returns</a></li>
+                    <li><a href="contact.html#faq">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 TraFa. All rights reserved.</div>
+            <div><a href="privacy.html">Privacy Policy</a> • <a href="terms.html">Terms of Service</a></div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="cart.js"></script>
+    <script src="main.js"></script>
+    <script>
+        let currentQuantity = 1;
+        let currentProduct = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+
+            if (productId) {
+                loadProduct(productId);
+                loadRelatedProducts(productId);
+            } else {
+                window.location.href = 'shop.html';
+            }
+        });
+
+        function loadProduct(id) {
+            currentProduct = getProductById(id);
+
+            if (!currentProduct) {
+                window.location.href = 'shop.html';
+                return;
+            }
+
+            document.title = `${currentProduct.name} — TraFa`;
+
+            const container = document.getElementById('product-container');
+            container.innerHTML = `
+                <div class="product-gallery">
+                    <img src="${currentProduct.images[0]}" alt="${currentProduct.name}" class="main-image" id="main-image">
+                    <div class="thumbnail-grid">
+                        ${currentProduct.images.map((img, index) => `
+                            <img src="${img}"
+                                 alt="${currentProduct.name} view ${index + 1}"
+                                 class="thumbnail ${index === 0 ? 'active' : ''}"
+                                 onclick="changeImage('${img}', ${index})">
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="product-info">
+                    <span class="product-category">${currentProduct.category}</span>
+                    <h1>${currentProduct.name}</h1>
+                    <div class="product-price">$${currentProduct.price}</div>
+
+                    <p class="product-full-description">${currentProduct.fullDescription}</p>
+
+                    <div class="product-details">
+                        <h3>Product Details</h3>
+                        <ul>
+                            ${Object.entries(currentProduct.details).map(([key, value]) => `
+                                <li>
+                                    <strong>${key.charAt(0).toUpperCase() + key.slice(1)}</strong>
+                                    <span>${value}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="quantity-selector">
+                        <label style="font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin-right: auto;">Quantity</label>
+                        <button onclick="decreaseQuantity()">−</button>
+                        <input type="number" id="quantity-input" value="1" min="1" max="99" readonly>
+                        <button onclick="increaseQuantity()">+</button>
+                    </div>
+
+                    <button class="btn" style="width: 100%; margin-bottom: 1rem;" onclick="addCurrentProductToCart()">
+                        Add to Cart — $${currentProduct.price}
+                    </button>
+
+                    <div style="text-align: center; font-size: 0.9rem; color: var(--text-gray); line-height: 1.6;">
+                        <p style="margin-bottom: 0.5rem;">✓ Free shipping on orders over $500</p>
+                        <p style="margin-bottom: 0.5rem;">✓ 30-day return policy</p>
+                        <p>✓ Secure checkout</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function changeImage(src, index) {
+            document.getElementById('main-image').src = src;
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function increaseQuantity() {
+            currentQuantity++;
+            if (currentQuantity > 99) currentQuantity = 99;
+            updateQuantityDisplay();
+        }
+
+        function decreaseQuantity() {
+            currentQuantity--;
+            if (currentQuantity < 1) currentQuantity = 1;
+            updateQuantityDisplay();
+        }
+
+        function updateQuantityDisplay() {
+            const input = document.getElementById('quantity-input');
+            if (input) {
+                input.value = currentQuantity;
+            }
+
+            // Update button text with total price
+            const addButton = document.querySelector('.btn');
+            if (addButton && currentProduct) {
+                const total = currentProduct.price * currentQuantity;
+                addButton.innerHTML = `Add to Cart — $${total}`;
+            }
+        }
+
+        function addCurrentProductToCart() {
+            if (currentProduct) {
+                addToCart(currentProduct.id, currentQuantity);
+                // Reset quantity after adding
+                currentQuantity = 1;
+                updateQuantityDisplay();
+            }
+        }
+
+        function loadRelatedProducts(currentId) {
+            const current = getProductById(currentId);
+            if (!current) return;
+
+            // Get products from same category, excluding current product
+            let related = getProductsByCategory(current.category)
+                .filter(p => p.id !== currentId);
+
+            // If not enough products from same category, add from other categories
+            if (related.length < 3) {
+                const others = getAllProducts()
+                    .filter(p => p.id !== currentId && p.category !== current.category);
+                related = [...related, ...others];
+            }
+
+            // Take only first 3
+            related = related.slice(0, 3);
+
+            const container = document.getElementById('related-products');
+            container.innerHTML = related.map((product, index) => `
+                <div class="product-card" style="display: block;">
+                    <a href="product.html?id=${product.id}" style="text-decoration: none; color: inherit; display: block;">
+                        <span class="product-number">[${String(product.id).padStart(3, '0')}]</span>
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">$${product.price}</div>
+                    </a>
+                    <button class="btn btn-small add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}); return false;">Add to Cart</button>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+
+</html>
